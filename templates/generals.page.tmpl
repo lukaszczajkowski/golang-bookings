@@ -1,71 +1,92 @@
 {{template "base" .}}
 
 {{define "content"}}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <img src="/static/images/generals-quarters.png" class="img-fluid mx-auto d-block room-image" alt="room image">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <img src="/static/images/generals-quarters.png" class="img-fluid mx-auto d-block room-image"
+                     alt="room image">
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <h1 class="text-center mt-4">General's Quarters</h1>
-            <p>
-                Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to
-                remember.
-                Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to
-                remember.
-                Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to
-                remember.
-                Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to
-                remember.
-                Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to
-                remember.
-                Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to
-                remember.
-            </p>
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center mt-4">General's Quarters</h1>
+                <p>
+                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
+                    to
+                    remember.
+                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
+                    to
+                    remember.
+                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
+                    to
+                    remember.
+                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
+                    to
+                    remember.
+                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
+                    to
+                    remember.
+                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
+                    to
+                    remember.
+                </p>
+            </div>
         </div>
-    </div>
 
 
-    <div class="row">
+        <div class="row">
 
-        <div class="col text-center">
+            <div class="col text-center">
 
-            <!-- #! means don't do anything after clicking -->
-            <a id="check-availability-button" href="#!" class="btn btn-success">Check Availability</a>
+                <!-- #! means don't do anything after clicking -->
+                <a id="check-availability-button" href="#!" class="btn btn-success">Check Availability</a>
 
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
 {{end}}
 
 {{define "js"}}
 
-<script>
+    <script>
 
-document.getElementById("check-availability-button").addEventListener("click", function () {
-let html = `
-<form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
-    <div class="form-row">
-        <div class="col">
-            <div class="form-row" id="reservation-dates-modal">
-                <div class="col">
-                    <input disabled class="form-control" type="text" name="start" id="start"
-                           placeholder="Arrival">
+        document.getElementById("check-availability-button").addEventListener("click", function () {
+            let html = `
+            <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
+                <div class="form-row">
+                    <div class="col">
+                        <div class="form-row" id="reservation-dates-modal">
+                            <div class="col">
+                                <input disabled class="form-control" type="text" name="start" id="start"
+                                       placeholder="Arrival">
+                            </div>
+                            <div class="col">
+                                <input disabled class="form-control" type="text" name="end" id="end"
+                                       placeholder="Departure">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <input disabled class="form-control" type="text" name="end" id="end"
-                           placeholder="Departure">
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-`
-attention.custom({msg: html, title: "Choose your dates"})
-});
-</script>
+            </form>
+            `
+            attention.custom({
+                msg: html,
+                title: "Choose your dates",
+                callback: function (result) {
+                    console.log("called");
+
+                    fetch('/search-availability-json')
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            console.log(data.ok);
+                            console.log(data.message);
+                        })
+                }
+            })
+        });
+    </script>
 
 {{end}}
