@@ -3,9 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/lukaszczajkowski/golang-bookings/pkg/config"
-	"github.com/lukaszczajkowski/golang-bookings/pkg/models"
-	"github.com/lukaszczajkowski/golang-bookings/pkg/render"
+	"github.com/lukaszczajkowski/golang-bookings/internal/config"
+	"github.com/lukaszczajkowski/golang-bookings/internal/models"
+	"github.com/lukaszczajkowski/golang-bookings/internal/render"
 	"log"
 	"net/http"
 )
